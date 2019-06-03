@@ -1,4 +1,6 @@
-FROM aarch64/node:4.6-slim
+# FROM aarch64/node:4.6-slim
+ARG NODE_VERSION=8
+FROM  arm64v8/node:${NODE_VERSION}-alpine 
 
 # Experimental ARMv8 support for Node-RED
 
@@ -14,6 +16,10 @@ WORKDIR /usr/src/node-red
 RUN useradd --home-dir /usr/src/node-red --no-create-home node-red \
     && chown -R node-red:node-red /data \
     && chown -R node-red:node-red /usr/src/node-red
+
+RUN apk update && apk add --no-cache  bash linux-headers make gcc g++ python  \
+	&& apk add ca-certificates ffmpeg libva-intel-driver  \
+	&& rm -rf /var/cache/*
 
 USER node-red
 
