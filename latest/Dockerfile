@@ -13,6 +13,9 @@ WORKDIR /usr/src/node-red
 RUN useradd --home-dir /usr/src/node-red --no-create-home node-red \
     && chown -R node-red:node-red /data \
     && chown -R node-red:node-red /usr/src/node-red
+	
+RUN set -ex \
+    && apt-get update && apt-get install -y ca-certificates build-essential python ffmpeg
 
 USER node-red
 

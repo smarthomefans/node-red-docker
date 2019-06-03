@@ -13,6 +13,10 @@ WORKDIR /usr/src/node-red
 RUN adduser -h /usr/src/node-red -D -H node-red \
     && chown -R node-red:node-red /data \
     && chown -R node-red:node-red /usr/src/node-red
+	
+RUN apk update && apk add --no-cache  bash linux-headers make gcc g++ python  \
+	&& apk add ca-certificates ffmpeg libva-intel-driver  \
+	&& rm -rf /var/cache/*
 
 USER node-red
 

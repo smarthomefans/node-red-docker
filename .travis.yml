@@ -9,41 +9,41 @@ before_install:
   - source version.sh
   - echo $VERSION
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -f latest/Dockerfile -t nodered/node-red-docker .
-  - docker build -f latest/Dockerfile -t nodered/node-red-docker:v10 --build-arg NODE_VERSION=10 .
-  - docker build -f slim/Dockerfile -t nodered/node-red-docker:slim .
-  - docker build -f slim/Dockerfile -t nodered/node-red-docker:slim-v10 --build-arg NODE_VERSION=10 .
-  - docker build -f rpi/Dockerfile -t nodered/node-red-docker:rpi .
+  - docker build -f latest/Dockerfile -t smarthomefans/node-red-docker .
+  - docker build -f latest/Dockerfile -t smarthomefans/node-red-docker:v10 --build-arg NODE_VERSION=10 .
+  - docker build -f slim/Dockerfile -t smarthomefans/node-red-docker:slim .
+  - docker build -f slim/Dockerfile -t smarthomefans/node-red-docker:slim-v10 --build-arg NODE_VERSION=10 .
+  # - docker build -f rpi/Dockerfile -t nodered/node-red-docker:rpi .
   # - docker build -f rpi/Dockerfile -t nodered/node-red-docker:rpi-v10 --build-arg NODE_VERSION=10 .
-  - docker tag nodered/node-red-docker nodered/node-red-docker:$VERSION
-  - docker tag nodered/node-red-docker nodered/node-red-docker:v8
-  - docker tag nodered/node-red-docker nodered/node-red-docker:$VERSION-v8
-  - docker tag nodered/node-red-docker:v10 nodered/node-red-docker:$VERSION-v10
-  - docker tag nodered/node-red-docker:slim nodered/node-red-docker:$VERSION-slim
-  - docker tag nodered/node-red-docker:slim nodered/node-red-docker:slim-v8
-  - docker tag nodered/node-red-docker:slim nodered/node-red-docker:$VERSION-slim-v8
-  - docker tag nodered/node-red-docker:slim-v10 nodered/node-red-docker:$VERSION-slim-v10
-  - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:$VERSION-rpi
-  - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:rpi-v8
-  - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:$VERSION-rpi-v8
+  # - docker tag nodered/node-red-docker nodered/node-red-docker:$VERSION
+  # - docker tag nodered/node-red-docker nodered/node-red-docker:v8
+  - docker tag nodered/node-red-docker smarthomefans/node-red-docker:$VERSION-v8
+  - docker tag nodered/node-red-docker:v10 smarthomefans/node-red-docker:$VERSION-v10
+  - docker tag nodered/node-red-docker:slim smarthomefans/node-red-docker:$VERSION-slim
+  # - docker tag nodered/node-red-docker:slim nodered/node-red-docker:slim-v8
+  # - docker tag nodered/node-red-docker:slim nodered/node-red-docker:$VERSION-slim-v8
+  - docker tag nodered/node-red-docker:slim-v10 smarthomefans/node-red-docker:$VERSION-slim-v10
+  # - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:$VERSION-rpi
+  # - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:rpi-v8
+  # - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:$VERSION-rpi-v8
   # - docker tag nodered/node-red-docker:rpi-v10 nodered/node-red-docker:$VERSION-rpi-v10
 
 script:
-  - docker run -d nodered/node-red-docker:latest
+  - docker run -d smarthomefans/node-red-docker:latest
   - docker ps | grep latest
-  - docker run -d nodered/node-red-docker:v10
+  - docker run -d smarthomefans/node-red-docker:v10
   - docker ps | grep v10
-  - docker run -d nodered/node-red-docker:slim
+  - docker run -d smarthomefans/node-red-docker:slim
   - docker ps | grep slim
-  - docker run -d nodered/node-red-docker:slim-v10
+  - docker run -d smarthomefans/node-red-docker:slim-v10
   - docker ps | grep slim-v10
-  - docker run -d nodered/node-red-docker:rpi
-  - docker ps | grep rpi
+  # - docker run -d nodered/node-red-docker:rpi
+  # - docker ps | grep rpi
   # - docker run -d nodered/node-red-docker:rpi-v10
   # - docker ps | grep rpi-v10
 
 after_success:
   - if [ -n "$TRAVIS_TAG" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker push nodered/node-red-docker;
+    docker push smarthomefans/node-red-docker;
     fi
