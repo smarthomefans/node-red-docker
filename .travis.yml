@@ -8,23 +8,29 @@ services:
 before_install:
   - source version.sh
   - echo $VERSION
+  - mkdir tmp
+  - >
+    pushd tmp &&
+    curl -L -o qemu-aarch64-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/v2.11.1/qemu-aarch64-static.tar.gz &&
+    tar xzf qemu-aarch64-static.tar.gz &&
+    popd
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -f latest/Dockerfile -t smarthomefans/node-red-docker .
-  - docker build -f latest/Dockerfile -t smarthomefans/node-red-docker:v10 --build-arg NODE_VERSION=10 .
-  - docker build -f slim/Dockerfile -t smarthomefans/node-red-docker:slim .
-  - docker build -f slim/Dockerfile -t smarthomefans/node-red-docker:slim-v10 --build-arg NODE_VERSION=10 .
+  # - docker build -f latest/Dockerfile -t smarthomefans/node-red-docker .
+  # - docker build -f latest/Dockerfile -t smarthomefans/node-red-docker:v10 --build-arg NODE_VERSION=10 .
+  # - docker build -f slim/Dockerfile -t smarthomefans/node-red-docker:slim .
+  # - docker build -f slim/Dockerfile -t smarthomefans/node-red-docker:slim-v10 --build-arg NODE_VERSION=10 .
   - docker build -f aarch64/Dockerfile -t smarthomefans/node-red-docker:aarch64 .
   - docker build -f aarch64/Dockerfile -t smarthomefans/node-red-docker:aarch64-v10 --build-arg NODE_VERSION=10 .
   # - docker build -f rpi/Dockerfile -t nodered/node-red-docker:rpi .
   # - docker build -f rpi/Dockerfile -t nodered/node-red-docker:rpi-v10 --build-arg NODE_VERSION=10 .
   # - docker tag nodered/node-red-docker nodered/node-red-docker:$VERSION
   # - docker tag nodered/node-red-docker nodered/node-red-docker:v8
-  - docker tag smarthomefans/node-red-docker smarthomefans/node-red-docker:$VERSION-v8
-  - docker tag smarthomefans/node-red-docker:v10 smarthomefans/node-red-docker:$VERSION-v10
-  - docker tag smarthomefans/node-red-docker:slim smarthomefans/node-red-docker:$VERSION-slim
-  - docker tag smarthomefans/node-red-docker:slim-v10 smarthomefans/node-red-docker:$VERSION-slim-v10
-  - docker tag smarthomefans/node-red-docker:aarch64 smarthomefans/node-red-docker:$VERSION-aarch64
-  - docker tag smarthomefans/node-red-docker:aarch64-v10 smarthomefans/node-red-docker:$VERSION-aarch64-v10
+  # - docker tag smarthomefans/node-red-docker smarthomefans/node-red-docker:$VERSION-v8
+  # - docker tag smarthomefans/node-red-docker:v10 smarthomefans/node-red-docker:$VERSION-v10
+  # - docker tag smarthomefans/node-red-docker:slim smarthomefans/node-red-docker:$VERSION-slim
+  # - docker tag smarthomefans/node-red-docker:slim-v10 smarthomefans/node-red-docker:$VERSION-slim-v10
+  # - docker tag smarthomefans/node-red-docker:aarch64 smarthomefans/node-red-docker:$VERSION-aarch64
+  # - docker tag smarthomefans/node-red-docker:aarch64-v10 smarthomefans/node-red-docker:$VERSION-aarch64-v10
   # - docker tag nodered/node-red-docker:slim nodered/node-red-docker:slim-v8
   # - docker tag nodered/node-red-docker:slim nodered/node-red-docker:$VERSION-slim-v8
   # - docker tag nodered/node-red-docker:rpi nodered/node-red-docker:$VERSION-rpi
