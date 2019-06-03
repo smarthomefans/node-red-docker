@@ -20,7 +20,7 @@ RUN addgroup node-red && adduser node-red -G node-red -DH -h /usr/src/node-red \
     && chown -R node-red:node-red /usr/src/node-red
 
 RUN apk update && apk add --no-cache  bash linux-headers make gcc g++ python  \
-	&& apk add ca-certificates ffmpeg libva-intel-driver  \
+	&& apk add ca-certificates ffmpeg   \
 	&& rm -rf /var/cache/*
 
 USER node-red
