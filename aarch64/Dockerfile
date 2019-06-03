@@ -2,7 +2,7 @@
 ARG NODE_VERSION=8
 FROM  arm64v8/node:${NODE_VERSION}-alpine 
 
-COPY qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY tmp/qemu-aarch64-static /usr/bin/qemu-aarch64-static
 
 # Experimental ARMv8 support for Node-RED
 
