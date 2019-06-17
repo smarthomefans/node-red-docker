@@ -15,8 +15,12 @@ RUN adduser -h /usr/src/node-red -D -H node-red \
     && chown -R node-red:node-red /usr/src/node-red
 	
 RUN apk update && apk add --no-cache  bash linux-headers make gcc g++ python  \
-	&& apk add ca-certificates ffmpeg libva-intel-driver  \
+	ca-certificates ffmpeg libva-intel-driver tzdata  \
 	&& rm -rf /var/cache/*
+
+ENV LANG="zh_CN.UTF-8" \
+	LC_ALL="zh_CN.UTF-8" \
+	TZ="Asia/Shanghai" 
 
 USER node-red
 

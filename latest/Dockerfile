@@ -15,7 +15,11 @@ RUN useradd --home-dir /usr/src/node-red --no-create-home node-red \
     && chown -R node-red:node-red /usr/src/node-red
 	
 RUN set -ex \
-    && apt-get update && apt-get install -y ca-certificates build-essential python ffmpeg
+    && apt-get update && apt-get install -y ca-certificates build-essential python ffmpeg tzdata
+
+ENV LANG="zh_CN.UTF-8" \
+	LC_ALL="zh_CN.UTF-8" \
+	TZ="Asia/Shanghai" 
 
 USER node-red
 
