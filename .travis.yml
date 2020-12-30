@@ -58,7 +58,7 @@ script:
   # - docker ps | grep rpi-v10
 
 after_success:
-  - if [ -n "$TRAVIS_TAG" ]; then
+#   - if [ -n "$TRAVIS_TAG" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker push smarthomefans/node-red-docker;
-    fi
+#     fi
