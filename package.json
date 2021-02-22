@@ -24,7 +24,7 @@
         }
     ],
     "dependencies": {
-        "node-red": "1.2.6",
+        "node-red": "1.2.7",
         "node-red-node-msgpack": "*",
         "node-red-node-base64": "*",
         "node-red-node-suncalc": "*",
